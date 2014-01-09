@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title>Alerta Options</title>
+</head>
+
+<body>
+  <div>
+    <h2>Alerta Options</h2>
+
+    <p><h3>API URL</h3>
+      <input id="api_url" style="width:300px;" type="text" />
+    </p>
+
+    <p><h3>Dashboard URL</h3>
+      <input id="dashboard_url" style="width:300px;" type="text" />
+    </p>
+
+    <p><h3>Environment</h3>
+      <input type="checkbox" id="env_prod"/>
+      <label for="env_prod">Production</label>
+      <br/>
+      <input type="checkbox" id="env_infra"/>
+      <label for="env_infra">Infrastructure</label>
+      <br/>
+      <input type="checkbox" id="env_dev"/>
+      <label for="env_dev">Development</label>
+    </p>
+
+    <p><h3>Severity</h3>
+      <input type="checkbox" id="sev_critical"/>
+      <label for="sev_critical">Critical</label>
+      <br/>
+      <input type="checkbox" id="sev_major"/>
+      <label for="sev_major">Major</label>
+      <br/>
+      <input type="checkbox" id="sev_minor"/>
+      <label for="sev_minor">Minor</label>
+      <br/>
+      <input type="checkbox" id="sev_warning"/>
+      <label for="sev_warning">Warning</label>
+      <br/>
+      <input type="checkbox" id="sev_normal"/>
+      <label for="sev_normal">Normal</label>
+      <br/>
+      <input type="checkbox" id="sev_inform"/>
+      <label for="sev_inform">Informational</label>
+    </p>
+
+  </div>
+
+  <div id="status"></div>
+  <button id="save">Save</button>
+
+</body>
+
+<script src="options.js"></script>
+
+</html>

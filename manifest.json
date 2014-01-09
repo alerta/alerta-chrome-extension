@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Alerta",
+  "description": "Alerta extension for open alert count and quick access to dashboard",
+  "version": "0.0.4",
+  "permissions": [ "alarms", "tabs", "webNavigation", "http://monitoring.guprod.gnm/" ],
+  "minimum_chrome_version": "23",
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+  "options_page": "options.html",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "icons": {
+    "128": "icon_128.png"
+  }
+}
