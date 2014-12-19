@@ -40,23 +40,29 @@ var loadingAnimation = new LoadingAnimation();
 var oldChromeVersion = !chrome.runtime;
 var requestTimerId;
 
-var dashboardUrlPath = '/v2/index.html';
-var feedUrlPath = '/v2/alerts/counts?';
+var dashboardUrlPath = '/#/alerts';
+var feedUrlPath = '/alerts/count?';
 
 function getAPIUrl() {
   var api_url = localStorage['api_url'];
   if (api_url == null) {
-    // Default URL for the Guardian
-    api_url = 'http://monitoring.guprod.gnm:8080/alerta/api'
+    api_url = 'http://api.alerta.io'
   }
-  return api_url + feedUrlPath
+  return api_url
+}
+
+function getAPIKey() {
+  var api_key = localStorage['api_key'];
+  if (api_key == null) {
+    api_key = 'demo-key'
+  }
+  return 'api-key=' + escape(api_key)
 }
 
 function getDashboardUrl() {
   var dashboard_url = localStorage['dashboard_url'];
   if (dashboard_url == null) {
-    // Default URL for the Guardian
-    dashboard_url = 'http://monitoring.guprod.gnm/alerta/dashboard'
+    dashboard_url = 'http://try.alerta.io'
   }
   return dashboard_url + dashboardUrlPath
 }
@@ -66,9 +72,9 @@ function getEnvironments() {
   if (env_str == null) {
     // Default options if not set
     envs = {
-      'PROD':  true,
-      'INFRA': true,
-      'DEV':   false
+      'Production':  true,
+      'Infrastructure': true,
+      'Development':   false
     };
   } else {
     envs = JSON.parse(env_str);
@@ -82,7 +88,7 @@ function getEnvironments() {
   }
 
   console.log(envs_option.join('|'));
-  return 'environment=' + envs_option.join('|')
+  return 'environment=~' + envs_option.join('|')
 }
 
 function getSeverities() {
@@ -109,7 +115,7 @@ function getSeverities() {
   }
 
   console.log(sevs_option.join('|'));
-  return 'severity=' + sevs_option.join('|')
+  return 'severity=~' + sevs_option.join('|')
 }
 
 function isAlertaUrl(url) {
@@ -250,17 +256,17 @@ function getAlertCount(onSuccess, onError) {
       if (xhr.readyState != 4)
         return;
 
-      console.log(getAPIUrl() + feedUrlPath + getEnvironments() + '&' + getSeverities());
+      console.log(getAPIUrl() + feedUrlPath + getAPIKey() + '&' + getEnvironments() + '&' + getSeverities());
       var resp = JSON.parse(xhr.responseText);
-      console.log('Open Alerts count: ' + resp.response.alerts.statusCounts.open);
+      console.log(resp);
 
       // JSON returned from Alerts must be valid
-      if (resp.response) {
+      if (resp.status) {
         var xmlDoc = xhr.responseXML;
-        var status = resp.response.status
-        var count = resp.response.alerts.statusCounts.open
+        var status = resp.status
         console.log(status);
         if (status == 'ok') {
+          var count = resp.statusCounts.open
           console.log('count=' + count);
           handleSuccess(count);
           return;
@@ -276,7 +282,7 @@ function getAlertCount(onSuccess, onError) {
       handleError();
     };
 
-    xhr.open("GET", getAPIUrl() + feedUrlPath + getEnvironments() + '&' + getSeverities(), true);
+    xhr.open("GET", getAPIUrl() + feedUrlPath + getAPIKey() + '&' + getEnvironments() + '&' + getSeverities(), true);
     xhr.send(null);
   } catch(e) {
     console.error("alerta_check_exception", e);

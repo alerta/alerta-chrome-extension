@@ -1,5 +1,5 @@
 // Alerta Chrome Extension
-// Copyright (c) 2014 Guardian News & Media
+// Copyright (c) 2014 Andy Botting
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -29,12 +29,13 @@
 function saveOptions() {
 
   var api_url = document.getElementById('api_url').value;
+  var api_key = document.getElementById('api_key').value;
   var dashboard_url = document.getElementById('dashboard_url').value;
 
   var envs = {
-    'PROD':  document.getElementById('env_prod').checked,
-    'INFRA': document.getElementById('env_infra').checked,
-    'DEV':   document.getElementById('env_dev').checked
+    'Production': document.getElementById('env_prod').checked,
+    'Infrastructure': document.getElementById('env_infra').checked,
+    'Development': document.getElementById('env_dev').checked
   };
 
   var sevs = {
@@ -47,6 +48,7 @@ function saveOptions() {
   };
 
   localStorage['api_url'] = api_url
+  localStorage['api_key'] = api_key
   localStorage['environments'] = JSON.stringify(envs);
   localStorage['severities'] = JSON.stringify(sevs);
   console.log('localStorage=' + JSON.stringify(localStorage));
@@ -65,14 +67,21 @@ function restoreOptions() {
 
   var api_url = localStorage['api_url'];
   if (api_url == null) {
-    api_url = 'http://monitoring.guprod.gnm:8080/alerta';
+    api_url = 'http://api.alerta.io';
   }
   console.log("API URL: " + api_url);
   document.getElementById('api_url').value = api_url;
 
+  var api_key = localStorage['api_key'];
+  if (api_key == null) {
+    api_key = 'demo-key';
+  }
+  console.log("API Key: " + api_key);
+  document.getElementById('api_key').value = api_key;
+
   var dashboard_url = localStorage['dashboard_url'];
   if (dashboard_url == null) {
-    dashboard_url = 'http://monitoring.guprod.gnm/alerta/dashboard';
+    dashboard_url = 'http://try.alerta.io';
   }
   console.log("Dashboard URL: " + dashboard_url);
   document.getElementById('dashboard_url').value = dashboard_url;
@@ -81,21 +90,18 @@ function restoreOptions() {
   if (env_str == null) {
     // Default options if not set
     envs = {
-      'PROD':  true,
-      'INFRA': true,
-      'DEV':   false
+      'Production':  true,
+      'Infrastructure': true,
+      'Development':   false
     };
   } else {
     console.log(env_str);
     envs = JSON.parse(env_str);
   }
 
-  console.log("Environment PROD: " + envs['PROD']);
-  console.log("Environment INFRA: " + envs['INFRA']);
-  console.log("Environment DEV: " + envs['DEV']);
-  document.getElementById('env_prod').checked = envs['PROD'];
-  document.getElementById('env_infra').checked = envs['INFRA'];
-  document.getElementById('env_dev').checked = envs['DEV'];
+  document.getElementById('env_prod').checked = envs['Production'];
+  document.getElementById('env_infra').checked = envs['Infrastructure'];
+  document.getElementById('env_dev').checked = envs['Development'];
 
   var sev_str = localStorage['severities'];
   if (sev_str == null) {
