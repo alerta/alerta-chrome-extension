@@ -266,7 +266,7 @@ function getAlertCount(onSuccess, onError) {
         var status = resp.status
         console.log(status);
         if (status == 'ok') {
-          var count = resp.statusCounts.open
+          var count = resp.statusCounts.open || 0
           console.log('count=' + count);
           handleSuccess(count);
           return;
