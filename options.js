@@ -49,6 +49,7 @@ function saveOptions() {
 
   localStorage['api_url'] = api_url
   localStorage['api_key'] = api_key
+  localStorage['dashboard_url'] = dashboard_url
   localStorage['environments'] = JSON.stringify(envs);
   localStorage['severities'] = JSON.stringify(sevs);
   console.log('localStorage=' + JSON.stringify(localStorage));
