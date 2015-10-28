@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Alerta",
   "description": "Alerta extension for open alert count and quick access to web UI",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "permissions": [ "alarms", "tabs", "webNavigation", "http://*/", "https://*/" ],
   "minimum_chrome_version": "23",
   "background": {
