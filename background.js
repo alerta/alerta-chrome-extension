@@ -100,8 +100,10 @@ function getSeverities() {
       'major': true,
       'minor':   false,
       'warning':   false,
-      'normal':   false,
-      'informational':   false
+      'indeterminate': false,
+      'informational': false,
+      'debug': false,
+      'security': false,
     };
   } else {
     sevs = JSON.parse(sev_str);

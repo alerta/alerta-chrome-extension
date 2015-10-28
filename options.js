@@ -43,8 +43,10 @@ function saveOptions() {
     'major': document.getElementById('sev_major').checked,
     'minor':   document.getElementById('sev_minor').checked,
     'warning':   document.getElementById('sev_warning').checked,
-    'normal':   document.getElementById('sev_normal').checked,
-    'informational':   document.getElementById('sev_inform').checked
+    'indeterminate':   document.getElementById('sev_indeterminate').checked,
+    'informational':   document.getElementById('sev_inform').checked,
+    'debug':   document.getElementById('sev_debug').checked,
+    'security':   document.getElementById('sev_auth').checked
   };
 
   localStorage['api_url'] = api_url
@@ -112,8 +114,10 @@ function restoreOptions() {
       'major': true,
       'minor':   false,
       'warning':   false,
-      'normal':   false,
-      'informational':   false
+      'indeterminate':   false,
+      'informational':   false,
+      'debug':   false,
+      'security':   false,
     };
   } else {
     console.log(sev_str);
@@ -124,14 +128,18 @@ function restoreOptions() {
   console.log("Severity major: " + sevs['major']);
   console.log("Severity minor: " + sevs['minor']);
   console.log("Severity warning: " + sevs['warning']);
-  console.log("Severity normal: " + sevs['normal']);
+  console.log("Severity indeterminate: " + sevs['indeterminate']);
   console.log("Severity informational: " + sevs['informational']);
+  console.log("Severity debug: " + sevs['debug']);
+  console.log("Severity security: " + sevs['security']);
   document.getElementById('sev_critical').checked = sevs['critical'];
   document.getElementById('sev_major').checked = sevs['major'];
   document.getElementById('sev_minor').checked = sevs['minor'];
   document.getElementById('sev_warning').checked = sevs['warning'];
-  document.getElementById('sev_normal').checked = sevs['normal'];
+  document.getElementById('sev_indeterminate').checked = sevs['indeterminate'];
   document.getElementById('sev_inform').checked = sevs['informational'];
+  document.getElementById('sev_debug').checked = sevs['debug'];
+  document.getElementById('sev_auth').checked = sevs['security'];
 }
 
 document.addEventListener('DOMContentLoaded', restoreOptions);
