@@ -3,6 +3,8 @@ Alerta Chome Extension
 
 A simple Google Chrome extension written against the Alerta API.
 
+![icon](/docs/images/alerta-chrome-icon.png?raw=true)
+
 Installation
 ------------
 
@@ -17,6 +19,8 @@ Configuration
 From the Alerta extension options, you'll at least need to enter the URLS for
 both the API and Dashboard. You can select the desired envionments and
 severity to check.
+
+![config](/docs/images/alerta-chrome-config-sm.png?raw=true)
 
 License
 -------
